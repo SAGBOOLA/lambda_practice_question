@@ -20,7 +20,7 @@ public class App
         System.out.println("-----------------------");
         implement(products,productsPriceRange,result);
         System.out.println("-----------------------");
-        implement(products,increaseProducts,result);
+        implement(products,increaseProducts,increase);
     }
 
     public static void implement(List<Product> products, Conditional filter, Action perform){
@@ -32,9 +32,14 @@ public class App
     }
 
     static Action result = System.out::println;
+    static Action increase = p -> {
+        double newPrice=p.getPrice()*1.5;
+        p.setPrice(newPrice);
+        System.out.println(p);
+    };
     static Conditional zeroStockValue = p->p.getStock()==0;
     static Conditional productsWithB = p->p.getProductName().startsWith("B");
     static Conditional productsPriceRange = p->p.getPrice()>100 && p.getPrice()<150;
-    static Conditional increaseProducts = p->(p.getStock()<10 && p.getStock()>0);
+    static Conditional increaseProducts = (p->p.getStock()<10 && p.getStock()>0);
 
 }
